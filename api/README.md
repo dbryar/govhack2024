@@ -27,6 +27,15 @@ Local deployment uses the **localstack** package to simulate the AWS environment
 bun run localstack
 ```
 
+The `localstack` folder may need to be created manually in the project root, with open permissions, depending on your system settings.
+
+From this folder (`./api`) run the following commands:
+
+```bash
+mkdir ../localstack
+chmod 777 ../localstack
+```
+
 To then run the API locally:
 
 ```bash

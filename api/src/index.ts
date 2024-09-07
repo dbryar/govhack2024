@@ -1,8 +1,12 @@
 import { app } from "./app";
+import { config } from "./config";
+import { bindLogger, container } from "./services";
 
+const logger = bindLogger(container);
 const { fetch } = app;
+const {
+  server: { port },
+} = config;
 
-Bun.serve({
-  port: process.env.PORT || 3030,
-  fetch,
-});
+logger.info(`Starting API on port ${port}`);
+Bun.serve({ port, fetch });
