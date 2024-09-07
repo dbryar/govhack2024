@@ -1,5 +1,5 @@
-import { HTTPException } from "hono/http-exception"
-import type { StatusCode } from "hono/utils/http-status"
+import { HTTPException } from "hono/http-exception";
+import type { StatusCode } from "hono/utils/http-status";
 
 export type HttpErrorParams = {
   statusCode?: StatusCode
@@ -10,6 +10,6 @@ export type HttpErrorParams = {
 
 export class HttpError extends HTTPException {
   constructor({ statusCode, ...options }: HttpErrorParams) {
-    super(statusCode, options)
+    super(statusCode, options);
   }
 }

@@ -1,7 +1,8 @@
-import { Hono } from "hono"
-import { v1 } from "./versions"
+import { Hono } from "hono";
 
-const routes = new Hono()
-routes.route("/api/v1", v1)
+import { v1 } from "./versions";
 
-export default routes
+const routes = new Hono();
+routes.route("/api/v1", v1);
+
+export default routes;
