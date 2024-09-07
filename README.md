@@ -10,7 +10,7 @@ Project TINA is designed as an AI agent that sits between a constituent and any 
 
 ## Introduction
 
-People _love_ to complain about government services. And not just the services, but the way their responsibilities are delivered within the context of the individual.
+People _love_ being vocal and opinionated about government services. And not just the services, but the way their responsibilities are delivered within the context of the individual.
 
 > - _"Why can't the government fix all these potholes in our roads?"_
 > - _"How is it that the government can spend $5 billion on domestic violence prevention programs and I can still hear my neighbours at each other every night?"_
@@ -21,7 +21,7 @@ Most of the time though these complaints just boil down to: **This is not accept
 
 And you know what? Most of the time; it isn't.
 
-The problem on the other side (the government side), it that they _know_ all these complaints are mostly unfounded, or misdirected, and so hard to provide a non-specific (static) answer to - or even suggest a responsible party for - that it all just becomes overwhelming to online content managers. Even though websites are able to handle a large number of visitors and provide an enormous volume of information, given the depth and breadth of government services, the one thing the complainant needs becomes hidden amongst less relevant pages, much like the proverbial needle in a haystack.
+The problem on the other side (the government side), it that they _know_ all these types of complaints are either unfounded, misdirected, or so hard to provide a non-specific (static) answer to - or even suggest a responsible party for - that it all just becomes overwhelming to those tasked with managing government advice. Even though websites are able to handle a large number of visitors and provide an enormous volume of information, given the depth and breadth of government services, the one thing the complainant needs becomes hidden amongst less relevant pages, much like the proverbial needle in a haystack.
 
 When searching on either Google or the site itself, the results may indeed find many results that appear to be the needle, however it is often a service description or indexed content page with no actionable items (buttons to click). "Googling" also assumes some knowledge of how to do an advanced Google search; not much use to a voice only user with a learning disability. To compound the problem every government department is directed to navigate the requirements for search engine optimisation (SEO) algorithms, as are hundreds if not thousands of other government services all over the world doing the same. It is understandable that this leads to a lot of frustration for the general public.
 
