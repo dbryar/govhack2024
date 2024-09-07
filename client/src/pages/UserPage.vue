@@ -94,7 +94,7 @@ export default defineComponent({
         await api
           .call({
             url: "/v1/users",
-            data: { message: message.value, user_id: fingerprint.value?.visitorId },
+            data: { message: message.value, uid: fingerprint.value?.visitorId },
           })
           .then((res) => {
             logger.debug("Response", res);

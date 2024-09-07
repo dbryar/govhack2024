@@ -106,6 +106,7 @@ export async function sessionHandler(c: Context, next: Next) {
     if (error instanceof HttpError) {
       throw error;
     } else {
+      logger.error("Failed to create session", error);
       throw new InternalError({
         message: "Failed to create session",
       });
