@@ -1,11 +1,11 @@
 import { containerKeys } from "@/config";
 import { Container } from "@/utils/container";
 
-import { bindAxios } from "./axios";
 import { bindDynamo } from "./aws-dynamo";
-import { bindLogger } from "./logger";
 import { bindS3 } from "./aws-s3";
+import { bindAxios } from "./axios";
 import { bindSession } from "./electro-session";
+import { bindLogger } from "./logger";
 
 const container = Container.init(containerKeys);
 
