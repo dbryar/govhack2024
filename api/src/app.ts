@@ -3,11 +3,18 @@ import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
 
 import routes from "./routes";
+import { cors } from "hono/cors";
 
 export const app = new Hono();
 
 app.use(logger());
-
+app.use(
+  cors({
+    origin: "*",
+    allowMethods: ["DELETE", "GET", "POST", "PUT", "OPTIONS"],
+    maxAge: 600,
+  })
+);
 app.route("/", routes);
 
 app.onError((err, c) => {
