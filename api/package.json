@@ -1,0 +1,38 @@
+{
+  "name": "tina-api",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --ext .ts ./src",
+    "lint:fix": "eslint --ext .ts ./src --fix",
+    "localstack": "bun run localstack:start && bun run localstack:init",
+    "localstack:start": "docker-compose up -d",
+    "localstack:init": "../scripts/create-bucket.sh && ../scripts/create-table.sh",
+    "localstack:stop": "docker-compose down",
+    "serve": "bun --watch ./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/tough-cookie": "^4.0.5",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "^2.8.8"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.645.0",
+    "@aws-sdk/client-s3": "^3.645.0",
+    "axios": "^1.7.7",
+    "axios-cookiejar-support": "^5.0.2",
+    "electrodb": "^2.14.3",
+    "hono": "^4.5.11",
+    "langchain": "^0.2.18",
+    "tough-cookie": "^4.1.4"
+  }
+}
