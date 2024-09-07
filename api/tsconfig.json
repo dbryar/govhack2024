@@ -8,6 +8,12 @@
     "jsx": "react-jsx",
     "allowJs": true,
 
+    // set src path alias
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
+
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
