@@ -1,13 +1,15 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
-import { logger } from "hono/logger";
+import { logger as requestLogger } from "hono/logger";
 
 import routes from "./routes";
-import { cors } from "hono/cors";
+import { bindLogger, container } from "./services";
 
 export const app = new Hono();
+const logger = bindLogger(container);
 
-app.use(logger());
+app.use(requestLogger());
 app.use(
   cors({
     origin: "*",
@@ -19,11 +21,12 @@ app.route("/", routes);
 
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
-    console.warn("Caught Error", err.message);
-    console.debug(err.cause, err.stack);
+    logger.warn("Caught Error", err.message);
+    if (err.cause) logger.info(err.cause);
+    logger.debug(err.stack);
     return err.getResponse();
   } else {
-    console.error(err);
+    logger.error(err);
     return c.text("Internal Server Error", 500);
   }
 });
