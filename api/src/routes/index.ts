@@ -12,6 +12,8 @@ routes.route("/api/v1", v1);
 
 routes.route("/assets", assets);
 routes.route("/metrics", metrics);
+
+routes.use("/", sessionHandler);
 routes.route("/", client);
 
 export default routes;

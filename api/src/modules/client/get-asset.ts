@@ -6,6 +6,8 @@ import { config } from "@/config";
 import { HttpError, InternalError, NotFoundError } from "@/models";
 import { bindLogger, bindS3, container } from "@/services";
 
+import { injectSessionToken } from "./inject-token";
+
 export async function getAsset(c: Context) {
   const logger = bindLogger(container);
   const s3 = bindS3(container);
@@ -25,11 +27,20 @@ export async function getAsset(c: Context) {
       });
     }
 
-    const output = result.Body;
-
     c.status((result.$metadata.httpStatusCode ?? 200) as StatusCode);
     c.header("Content-Type", mimeType);
     c.header("Content-Length", result.ContentLength?.toString() || "0");
+
+    let output;
+
+    switch (true) {
+      case assetFile.startsWith("axios"):
+        logger.debug("Injecting session token into axios");
+        output = await injectSessionToken(result, c.get("session").session_token);
+        return c.body(output);
+      default:
+        output = result.Body;
+    }
 
     const chunks: Uint8Array[] = [];
     for await (const chunk of output as unknown as AsyncIterable<Uint8Array>) {

@@ -18,9 +18,10 @@ const createSessionEntity = (client: DynamoDBClient) =>
       attributes: {
         session_id: { type: "string", required: true },
         session_token: { type: "string", required: true },
+        session_locale: { type: "string", required: false },
         session_expiry: { type: "number", required: true },
         session_timeout: { type: "number", required: true },
-        user_id: { type: "string", required: true },
+        user_id: { type: "string", required: false },
         user_data: { type: "string", required: false },
         user_messages: { type: "string", required: false },
         request_id: { type: "string", required: false },

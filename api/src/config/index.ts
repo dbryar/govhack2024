@@ -22,6 +22,7 @@ export const config = {
   openrouter: {
     url: process.env.OPENROUTER_API_URL || "https://openrouter.ai/api/v1",
     key: process.env.OPENROUTER_API_KEY || "unknown-key-value",
+    model: process.env.OPENROUTER_API_MODEL || "mattshumer/reflection-70b:free",
   },
   session: {
     timeout: Number(process.env.AUTH_SESSION_TIMEOUT) || 600, // 10 minutes
