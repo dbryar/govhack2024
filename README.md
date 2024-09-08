@@ -35,7 +35,7 @@ By delivering more accessible and inclusive communication mediums, TINA aims to 
 
 ## Video Presentation
 
-https://youtu.be/3975q8Vw06E
+[Video](https://drive.google.com/file/d/13o98162-F3OuRVgHyCEWx1e4ZaKSdgOl/view?usp=drive_link)
 
 ## Architecture
 
