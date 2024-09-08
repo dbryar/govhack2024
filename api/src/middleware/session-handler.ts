@@ -2,6 +2,7 @@ import { randomBytes } from "node:crypto";
 
 import type { Context, Next } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
+import type { CookieOptions } from "hono/utils/cookie";
 
 import { config, isProduction } from "@/config";
 import { HttpError, InternalError, MethodError, NotFoundError, UnauthorizedError } from "@/models";
@@ -13,21 +14,27 @@ const generateSessionId = () => {
 };
 
 const generateSessionToken = () => {
-  return randomBytes(32).toString("base64");
+  return randomBytes(24).toString("base64");
 };
 
 export async function sessionHandler(c: Context, next: Next) {
   const logger = bindLogger(container);
   const sessionDB = bindSession(container);
-  const sid = getCookie(c, "sid"); // session token
+  const sid = getCookie(c, "sid"); // session ID
   const now = Math.round(Date.now() / 1000);
-  const { session } = c.req.param(); // session ID
+  const { session } = c.req.param(); // session token
+  const options: CookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "strict",
+    maxAge: config.session.max_age,
+  };
 
   try {
-    if (session) {
+    if (sid) {
       // Validate session ID from DynamoDB
       const { data } = (await sessionDB
-        .find({ session_id: session })
+        .find({ session_id: sid })
         // .where() // TODO: limit to valid sessions only, e.g. initial, in progress and not timed out, or completed
         .go()) ?? { data: [] };
 
@@ -35,7 +42,7 @@ export async function sessionHandler(c: Context, next: Next) {
         throw new NotFoundError({ message: "Session not found" });
       }
 
-      if (data[0].session_token && data[0].session_token !== sid) {
+      if (session && data[0].session_token && session !== data[0].session_token) {
         deleteCookie(c, "sid");
         throw new UnauthorizedError({ message: "Invalid session" });
       }
@@ -44,15 +51,16 @@ export async function sessionHandler(c: Context, next: Next) {
 
       c.set("session", data[0]);
     } else {
-      if (c.req.method !== "POST") {
+      if (c.req.path !== "/") {
         throw new MethodError({
-          message: `${c.req.method} not allowed for unauthenticated requests.`,
+          message: `${c.req.method} ${c.req.path} not allowed for unauthenticated requests.`,
         });
       }
 
       const session_id = generateSessionId();
       const session_token = generateSessionToken();
-      const { uid: user_id } = await c.req.json();
+      const session_locale = c.req.header("Accept-Language")?.split(",")[0] || "en-AU";
+      setCookie(c, "sid", session_id, options);
 
       // Generate a new session ID and store in DynamoDB
       const { data } = await sessionDB
@@ -61,11 +69,12 @@ export async function sessionHandler(c: Context, next: Next) {
           session_expiry: now + config.session.max_age,
           session_timeout: now + config.session.timeout,
           session_token,
-          user_id,
+          session_locale,
         })
         .go();
 
       logger.info("New session initialised", data.session_id);
+      logger.debug("Session data", data);
       c.set("session", data);
     }
 
@@ -80,8 +89,9 @@ export async function sessionHandler(c: Context, next: Next) {
       );
       const { session_id } = thisSession;
       const session_token = generateSessionToken();
+      setCookie(c, "sid", session_id, options);
 
-      // Start a new session for the given user ID
+      // Reset the session
       const { data: sessionData } = await sessionDB
         .update({ session_id })
         .set({
@@ -89,23 +99,21 @@ export async function sessionHandler(c: Context, next: Next) {
           session_timeout: now + config.session.timeout,
           session_token,
           user_messages: "",
-          status: "active",
+          user_id: "",
+          user_data: "",
+          request_id: "",
+          response_id: "",
+          status: "initial",
         })
         .go();
 
-      // Set secure cookie
       c.set("session", sessionData);
-      setCookie(c, "sid", session_token, {
-        httpOnly: true,
-        secure: isProduction,
-        sameSite: "strict",
-        maxAge: config.session.max_age * 1000,
-      });
     }
   } catch (error) {
     if (error instanceof HttpError) {
       throw error;
     } else {
+      logger.error("Failed to create session", error);
       throw new InternalError({
         message: "Failed to create session",
       });

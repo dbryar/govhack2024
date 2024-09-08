@@ -57,7 +57,7 @@ chmod 777 ../localstack
 bun run build
 ```
 
-### Deploy to S3
+### Build and Deploy to S3
 
 ```bash
 bun run deploy

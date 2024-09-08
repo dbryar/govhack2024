@@ -36,9 +36,9 @@
         </q-card-actions>
       </form>
 
-      <q-card-section v-if="isDevelop">
+      <q-card-section v-if="isDevelop || true">
         <q-toggle v-model="isDarkMode" @input="toggleDarkMode" label="Dark Mode" />
-        <q-toggle v-model="locale" true-value="en-US" false-value="de-DE" label="Language" />
+        <q-toggle v-model="locale" true-value="en-AU" false-value="de-DE" label="Language" />
       </q-card-section>
     </q-card>
   </q-page>
@@ -63,7 +63,7 @@ export default defineComponent({
     const isDevelop = inject<boolean>("isDevelop");
     const isLoading = ref(false);
     const i18n = inject<(v: unknown, p?: R) => string>("i18n")!;
-    const locale = inject<string>("locale")!;
+    const locale = inject<Ref<string>>("locale")!;
     const name = SessionStore.get<string>("name");
     const title = name ? Language.headingWelcomeBack : Language.headingWelcome;
     const message = ref("");
@@ -94,7 +94,11 @@ export default defineComponent({
         await api
           .call({
             url: "/v1/users",
-            data: { message: message.value, user_id: fingerprint.value?.visitorId },
+            data: {
+              message: message.value,
+              locale: locale.value,
+              uid: fingerprint.value?.visitorId,
+            },
           })
           .then((res) => {
             logger.debug("Response", res);

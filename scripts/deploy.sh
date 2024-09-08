@@ -12,7 +12,8 @@ fi
 
 
 # push up the test files to the bucket as test-client_v1.0.0
-aws s3 cp ./client/dist/spa/index.html s3://local-bucket/test-client_v1.0.0 --endpoint-url http://localhost:4566
-aws s3 cp ./client/dist/spa/favicon.ico s3://local-bucket/assets/favicon.ico --endpoint-url http://localhost:4566
-aws s3 cp ./client/dist/spa/assets s3://local-bucket/assets --recursive --endpoint-url http://localhost:4566
-aws s3 cp ./client/dist/spa/icons s3://local-bucket/assets --recursive --endpoint-url http://localhost:4566
+aws s3 cp ./dist/spa/index.html s3://local-bucket/test-client_v1.0.0 --endpoint-url http://localhost:4566
+aws s3 cp ./dist/spa/favicon.ico s3://local-bucket/assets/favicon.ico --endpoint-url http://localhost:4566
+aws s3 cp ./dist/spa/assets s3://local-bucket/assets --recursive --endpoint-url http://localhost:4566
+aws s3 cp ./dist/spa/icons s3://local-bucket/assets --recursive --endpoint-url http://localhost:4566
+aws s3 cp ./dist/spa/image s3://local-bucket/assets --recursive --endpoint-url http://localhost:4566

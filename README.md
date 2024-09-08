@@ -113,4 +113,4 @@ To improve transparency, the AI agent can provide real-time updates to both the 
 - [ABS Education Statistics](https://www.abs.gov.au/statistics/people/education)
 - https://services-ap1.arcgis.com/ypkPEy1AmwPKGNNv/arcgis/rest/services/ABS_Education_and_employment_by_2021_LGA_Nov_2023/FeatureServer/0
 - https://services-ap1.arcgis.com/ypkPEy1AmwPKGNNv/arcgis/rest/services/ABS_Education_and_employment_by_2021_LGA_Nov_2023/FeatureServer/0/query?outFields=*&where=1%3D1
-- [Australian Government Style Guide](https://www.stylemanual.gov.au/)
+- [Australian Government Style Manual](https://www.stylemanual.gov.au/)

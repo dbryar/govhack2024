@@ -15,9 +15,14 @@ export const config = {
       session_table: process.env.AWS_DYNAMO_SESSION_TABLE || "local-session-table",
     },
   },
+  client: {
+    file: process.env.CLIENT_FILE || "test-client",
+    version: process.env.CLIENT_VERSION || "1.0.0",
+  },
   openrouter: {
     url: process.env.OPENROUTER_API_URL || "https://openrouter.ai/api/v1",
     key: process.env.OPENROUTER_API_KEY || "unknown-key-value",
+    model: process.env.OPENROUTER_API_MODEL || "mattshumer/reflection-70b:free",
   },
   session: {
     timeout: Number(process.env.AUTH_SESSION_TIMEOUT) || 600, // 10 minutes
