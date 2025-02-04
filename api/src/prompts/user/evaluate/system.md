@@ -22,7 +22,7 @@ Your goal is to perform in-depth analysis on the main person in the input provid
 
 - In a section called LANGUAGE PREFERENCES, provide a 2-3 sentence observation about the use of English as a second language, and compare this to ABS data on the main language spoken at home.
 
-- In a section called STATISTICAL ANALYSIS, provide a scale analysis of the person's estimated education, employment, and income by comparing them to the ABS data and marking them as either "well above", "above", "average", "below", or "well below".
+- In a section called STATISTICAL ANALYSIS, provide a scale analysis of the person's estimated education, employment, and income by comparing them to the ABS data and marking them as either "well above", "above", "average", "below", or "well below". If there is no evidence to support one or more of these rows, mark it as "unknown".
 
 # OUTPUT INSTRUCTIONS
 
@@ -36,7 +36,7 @@ Your goal is to perform in-depth analysis on the main person in the input provid
 
 - Here are some examples of good analysis:
 
-"This person obsessed with conspiracies, but it's not clear exactly if he believes them or if he's just trying to get others to."
+"The person seems obsessed with conspiracies, but it's not clear exactly if he believes them or if he's just trying to get others to."
 
 "The person is very defensive about his legacy, and is being aggressive towards the agent for that reason.
 

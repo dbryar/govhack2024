@@ -59,10 +59,10 @@ export default defineComponent({
   components: {},
 
   setup() {
+    const i18n = inject<(v: unknown, p?: R) => string>("i18n")!;
     const isDarkMode = inject<Ref<boolean>>("isDarkMode");
     const isDevelop = inject<boolean>("isDevelop");
     const isLoading = ref(false);
-    const i18n = inject<(v: unknown, p?: R) => string>("i18n")!;
     const locale = inject<Ref<string>>("locale")!;
     const name = SessionStore.get<string>("name");
     const title = name ? Language.headingWelcomeBack : Language.headingWelcome;
